@@ -1,3 +1,8 @@
+"""Legacy task service (iteration 3).
+
+Contains basic task management logic with logging and email notifications.
+"""
+
 from __future__ import annotations
 
 import datetime
@@ -10,8 +15,8 @@ from typing import List, Optional
 
 LOG_FILE = 'log.txt'
 
-
 class TaskStatus(Enum):
+    """Enumeration of task statuses."""
     TODO = 0
     IN_PROGRESS = 1
     DONE = 2
@@ -19,6 +24,7 @@ class TaskStatus(Enum):
 
 @dataclass
 class Task:
+    """Represents a task entity."""
     id: int
     title: str
     status: TaskStatus
@@ -28,28 +34,28 @@ class Task:
 
 
 class TaskRepository:
+    """In-memory storage for tasks."""
+
     def __init__(self) -> None:
         self._tasks: List[Task] = []
 
     def add_task(self, task: Task) -> None:
+        """Add a new task."""
         self._tasks.append(task)
 
     def get_by_id(self, task_id: int) -> Optional[Task]:
+        """Retrieve task by ID."""
         for task in self._tasks:
             if task.id == task_id:
                 return task
         return None
 
     def next_id(self) -> int:
+        """Generate next task ID."""
         return len(self._tasks) + 1
 
-
 def _validate_title(title: str) -> None:
-    """Validate task title.
-
-    :param title: Title of the task
-    :raises ValueError: If title is empty or too long
-    """
+    """Validate task title."""
     if not title:
         raise ValueError('no title')
 
@@ -57,22 +63,15 @@ def _validate_title(title: str) -> None:
         raise ValueError('title too long')
 
 
-def _log_action(message: str) -> None:
-    """Write log message to file.
 
-    :param message: Message to log
-    """
-    with open(LOG_FILE, 'a') as f:
+def _log_action(message: str) -> None:
+    """Write log message to file."""
+    with open(LOG_FILE, 'a', encoding='utf-8') as f:
         f.write(f"{datetime.datetime.now()}: {message}\n")
 
 
 def _send_email(user_email: str, title: str) -> None:
-    """Send notification email about task creation.
-
-    :param user_email: Recipient email
-    :param title: Task title
-    :raises smtplib.SMTPException: If sending fails
-    """
+    """Send notification email about task creation."""
     try:
         msg = MIMEText('New task: ' + title)
         msg['Subject'] = 'Task created'
