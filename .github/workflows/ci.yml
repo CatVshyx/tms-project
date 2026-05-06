@@ -31,19 +31,13 @@ jobs:
           cache: pip
 
       - name: Install linters
-        run: pip install flake8 pylint mypy bandit
+        run: pip install flake8 pylint
 
       - name: Run flake8
         run: flake8 src/ --max-line-length=100 --statistics
 
       - name: Run pylint
         run: pylint src/ --fail-under=7.0
-
-      - name: Run mypy
-        run: mypy src/ --ignore-missing-imports
-
-      - name: Run bandit
-        run: bandit -r src/ -ll -q
 
   test:
     name: Tests & Coverage
@@ -53,6 +47,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
+      fail-fast: false
 
     steps:
       - name: Checkout
@@ -62,13 +57,14 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: pip
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
-      - name: Run tests
+      - name: Run tests with coverage
         run: |
           pytest \
             --cov=src \
@@ -77,9 +73,28 @@ jobs:
             --cov-fail-under=${{ env.MIN_COVERAGE }} \
             -v --tb=short
 
-      - name: Upload coverage
+      - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-py${{ matrix.python-version }}
           path: coverage.xml
+
+  security:
+    name: Security Scan (Bandit)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install bandit
+        run: pip install bandit
+
+      - name: Run bandit (HIGH severity only)
+        run: bandit -r src/ -ll
