@@ -93,8 +93,23 @@ TRANSITIONS = [
 
 @pytest.mark.parametrize("from_status,to_status,allowed", TRANSITIONS)
 def test_status_transitions(mocker, from_status, to_status, allowed):
-    super_long_psssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss = 10
-    print(super_long_psssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss)
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
     task = mocker.Mock()
     task.status = from_status
 
