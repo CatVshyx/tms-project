@@ -1,6 +1,1 @@
-some ConnectionAbortedError
-ValueError
-ANOTHER CODE
-SDFSDF
-GFDG
-from .user import User
+print('hello')
