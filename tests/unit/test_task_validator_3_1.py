@@ -103,8 +103,8 @@ def test_status_transitions(mocker, from_status, to_status, allowed):
     service = TaskService(repo, notifier=mocker.Mock())
 
     if allowed:
-        result = service.change_status(1, to_status)
+        result = service.change_statuss(1, to_status)
         assert result.status == to_status
     else:
         with pytest.raises(ValueError):
-            service.change_status(1, to_status)
+            service.change_statusx(1, to_status)
