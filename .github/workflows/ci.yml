@@ -9,7 +9,7 @@ on:
 
 env:
   PYTHON_VERSION: '3.11'
-  MIN_COVERAGE: 75
+  MIN_COVERAGE: 100
 
 defaults:
   run:
