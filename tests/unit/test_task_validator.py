@@ -45,3 +45,4 @@ def test_create_task_calls_repo_save(mocker):
     service.create_task('title', 1, 'date', 10)
 
     repo.save.assert_called_once()
+
