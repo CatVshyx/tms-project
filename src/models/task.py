@@ -32,6 +32,23 @@ class Task:
 
 
 def change_status(self, new_status: TaskStatus) -> None:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     if new_status is None:
         raise ValueError('Status cannot be None')
     if new_status not in ALLOWED_TRANSITIONS[self.status]:
