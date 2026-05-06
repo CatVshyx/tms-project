@@ -15,6 +15,7 @@ from typing import List, Optional
 
 LOG_FILE = 'log.txt'
 
+
 class TaskStatus(Enum):
     """Enumeration of task statuses."""
     TODO = 0
@@ -54,6 +55,7 @@ class TaskRepository:
         """Generate next task ID."""
         return len(self._tasks) + 1
 
+
 def _validate_title(title: str) -> None:
     """Validate task title."""
     if not title:
@@ -61,7 +63,6 @@ def _validate_title(title: str) -> None:
 
     if len(title) > 100:
         raise ValueError('title too long')
-
 
 
 def _log_action(message: str) -> None:
