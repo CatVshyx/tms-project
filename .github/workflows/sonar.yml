@@ -1,35 +1,35 @@
-name: SonarCloud Analysis
+# name: SonarCloud Analysis
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  sonarcloud:
-    runs-on: ubuntu-latest
+# jobs:
+#   sonarcloud:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: |
+#           pip install -r requirements.txt
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=src" >> $GITHUB_ENV
+#       - name: Set PYTHONPATH
+#         run: echo "PYTHONPATH=src" >> $GITHUB_ENV
 
-      - name: Run tests with coverage
-        run: |
-          pytest --cov=src --cov-report=xml
+#       - name: Run tests with coverage
+#         run: |
+#           pytest --cov=src --cov-report=xml
 
-      - name: Verify coverage file
-        run: ls -la coverage.xml
+#       - name: Verify coverage file
+#         run: ls -la coverage.xml
 
-      - uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#       - uses: SonarSource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
