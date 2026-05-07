@@ -14,6 +14,13 @@ def health_check():
     }
 
 
+@app.post("/create-form")
+def form_check():
+    return {
+        "created": "true"
+    }
+
+
 @app.get("/tasks")
 def get_tasks():
     return {"tasks": [], "total": 0}
