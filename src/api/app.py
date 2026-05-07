@@ -13,9 +13,11 @@ def health_check():
         "version": "1.0.0",
     }
 
+
 @app.post("/create-form")
 def health_check():
-    return {"status": "ok", "created": "true"}
+    return { "created": "true"}
+
 
 @app.get("/tasks")
 def get_tasks():
