@@ -31,10 +31,5 @@ def create_task(request: TaskCreateRequest):
     task = task_service.create_task(
         title=request.title,
         description=request.description
-
-
-
-
-        
     )
     return task
