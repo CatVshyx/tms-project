@@ -6,4 +6,4 @@ client = TestClient(app)
 def test_create_form():
     response = client.post("/create-form")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "created": "true"}
+    assert response.json() == {"created": "true"}
