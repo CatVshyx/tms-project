@@ -15,7 +15,7 @@ class TaskCreateRequest(BaseModel):
 @router.get("/tasks")
 def get_tasks():
     """
-    Повертає список всіх задач
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     """
     return list(task_service.tasks.values())
 
@@ -23,7 +23,7 @@ def get_tasks():
 @router.post("/tasks")
 def create_task(request: TaskCreateRequest):
     """
-    Створює нову задачу
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     """
     if not request.title.strip():
         raise HTTPException(status_code=400, detail="Title cannot be empty")
@@ -31,5 +31,7 @@ def create_task(request: TaskCreateRequest):
     task = task_service.create_task(
         title=request.title,
         description=request.description
+
+        
     )
     return task
