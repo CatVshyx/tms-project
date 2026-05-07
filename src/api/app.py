@@ -15,8 +15,8 @@ def health_check():
 
 
 @app.post("/create-form")
-def health_check():
-    return { 
+def form_check():
+    return {
         "created": "true"
     }
 
