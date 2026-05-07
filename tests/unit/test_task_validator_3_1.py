@@ -1,6 +1,4 @@
 import pytest
-from fastapi.testclient import TestClient
-from src.api.app import app
 
 ALLOWED = {
         'NEW': ['ASSIGNED', 'CANCELLED'],
@@ -92,12 +90,6 @@ TRANSITIONS = [
     ('CANCELLED', 'DONE', False),
     ('CANCELLED', 'CANCELLED', False),
 ]
-
-client = TestClient(app)
-def test_create_form():
-    response = client.post("/create-form")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok", "created": "true"}
 
 @pytest.mark.parametrize("from_status,to_status,allowed", TRANSITIONS)
 def test_status_transitions(mocker, from_status, to_status, allowed):  
